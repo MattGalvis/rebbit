@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load staticfiles %}
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="{% static 'Rebbit/signintwo.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Rebbit/homepage.css' %}">
+    <title>subrebbit</title>
+</head>
+<body class = "news">
+  <header>
+    <div class="nav">
+      <ul class="ul2">
+        <li class="logout"><a href="/index">Home</a></li>
+        <li class="logout"><a href="/logout">Log Out</a></li>
+        <li class="createpost"><a href="/createsub">CreateTopic</a></li>
+        <li class="logout"><a href="/account">Account</a></li>
+        <li class="aboutus"><a href="/about">About Us</a></li>
+      </ul>
+    </div>
+  </header>
+{% if not request.session.user_username %}
+  <div class="form2"><div class="group">
+  <h1>You are not signed in. Please sign in to post content.</h1>
+      <button onclick="window.location.href='/signin'" type="button" class="button buttonBlue">Sign In
+    <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+  </button></div></div>
+{% else %}
+<form class="form2" action="/authpost/" method="POST">{% csrf_token %}
+  <div class="group">
+  <h1>Post Form</h1><span class="highlight"></span><span class="bar"></span>
+  </div>
+<!-- <div class="group">
+ This is the dropdown version which Reggie didn't like but it makes sense why.
+<select name="Topic" required>
+    {% for post in Subrebb_list %}
+        {% ifequal post.subr selected_post.subr %}
+            <option value="{{post.sub_r}}" selected="selected">{{post.sub_r}}</option>
+        {% else %}
+            <option value="{{post.sub_r}}">{{post.sub_r}}</option>
+        {% endifequal %}
+    {% endfor %}
+
+</select>
+    </div> -->
+  <div class="group">
+    <input type="text" name="topic" required><span class="highlight"></span><span class="bar"></span>
+    <label>Topic (Subrebbit)</label>
+  </div>
+  <div class="group">
+    <input type="text" name="posttitle" required><span class="highlight"></span><span class="bar"></span>
+    <label>Title</label>
+  </div>
+   <p class="p1">Post Content</p>
+    <div class="group">
+    <textarea rows="30" cols="70" name="postdescription" required></textarea>
+    </div>
+      <button type="submit" onclick="review.save(); return false;" class="button buttonBlue">Submit
+    <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+  </button>
+
+</form>
+    {% endif %}
+</body>
+</html>

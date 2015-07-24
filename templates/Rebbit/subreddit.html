@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    {% load staticfiles %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'Rebbit/homepage.css' %}" />
+    <title>Rebbit</title>
+</head>
+<body class = "news">
+  <header>
+    <div class="nav">
+      <ul>
+        {% if request.session.user_username %}
+        <li class="logout"><a href="/index">Home</a></li>
+        <li class="logout"><a href="/logout">Log Out</a></li>
+        <li class="createpost"><a href="/createpost">Post</a></li>
+        <li class="createpost"><a href="/createsub">Create Topic</a></li>
+        <li class="logout"><a href="/account">Account</a></li>
+        <li class="aboutus"><a href="/about">About Us</a></li>
+        {% else %}
+        <li class="logout"><a href="/index">Home</a></li>
+        <li class="signin"><a href="/signin">Sign In</a></li>
+        <li class="createpost"><a href="/createpost">Post</a></li>
+        <li class="aboutus"><a href="#">About Us</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </header>
+<center><h2><u><a href="/index"> Welcome to Rebbit</a></u></h2><br><h3>{{ request.session.user_fname }} {{ request.session.user_lname }}</h3></center>
+  <table><tr><td>
+  <div class = "container">
+        <h1>{{ subname.sub_r }}</h1>
+      {% for post in sub_list reversed%}
+        <h2><a href="/r/{{ post.subreddit }}/{{ post.id }}">{{ post.title }}</a></h2>
+        <p>
+            <small><b>{{ post.creator }} on {{ post.created }} {{ post.subreddit }} id: {{ post.id }}</b></small>
+        </p>
+{% endfor %}
+</div>
+</td>
+  <td>
+        <h1 align="center">Topic List</h1><center>
+        <div class = "container">
+
+    {% for post in reg_sub_list %}
+        <h2 align="center"><a href="/r/{{ post.sub_r }}">{{ post.sub_r }}</a></h2>
+{% endfor %}
+</div>
+  </td></tr></table>
+</body>
+</html>

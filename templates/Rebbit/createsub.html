@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="{% static 'Rebbit/signintwo.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Rebbit/homepage.css' %}">
+    <title>subrebbit</title>
+</head>
+<body class = "news">
+  <header>
+    <div class="nav">
+      <ul>
+        <li class="logout"><a href="/index">Home</a></li>
+        <li class="logout"><a href="/logout">Log Out</a></li>
+        <li class="createpost"><a href="/createpost">Create Post</a></li>
+        <li class="logout"><a href="/account">Account</a></li>
+        <li class="aboutus"><a href="/about">About Us</a></li>
+      </ul>
+    </div>
+  </header>
+<form action="/auth_sub/" method="POST">{% csrf_token %}
+  <div class="group">
+    <input type="text" name="subname" required><span class="highlight"></span><span class="bar"></span>
+    <label>Topic Name</label>
+      </div>
+      <button type="submit" onclick="review.save(); return false;" class="button buttonBlue">Submit
+    <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+  </button>
+</form>
+
+</body>
+</html>

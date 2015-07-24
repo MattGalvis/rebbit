@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="{% static 'Rebbit/signintwo.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Rebbit/homepage.css' %}">
+    <title>subrebbit</title>
+</head>
+{%  block content %}
+<body class = "news">
+  <header>
+    <div class="nav">
+      <ul class="ul2">
+        {% if request.session.user_username %}
+        <li class="logout"><a href="/index">Home</a></li>
+        <li class="logout"><a href="/logout">Log Out</a></li>
+        <li class="createpost"><a href="/createpost">Post</a></li>
+        <li class="createpost"><a href="/createsub">Create Topic</a></li>
+        <li class="logout"><a href="/account">Account</a></li>
+        <li class="aboutus"><a href="/about">About Us</a></li>
+        {% else %}
+        <li class="logout"><a href="/index">Home</a></li>
+        <li class="signin"><a href="/signin">Sign In</a></li>
+        <li class="createpost"><a href="/createpost">Post</a></li>
+        <li class="aboutus"><a href="#">About Us</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </header>
+{% if request.session.user_username %}
+  <form>
+  <div class="group">
+    <p><b>Name: </b>{{ request.session.user_fname  }} {{ request.session.user_lname  }}</p><span class="highlight"></span><span class="bar"></span>
+  </div>
+  <div class="group">
+    <p><b>Email: </b>{{ request.session.user_email  }}</p><span class="highlight"></span><span class="bar"></span>
+  </div>
+    <div class="group">
+    <p><b>Username: </b>{{ request.session.user_username  }}</p></span><span class="bar"></span>
+  </div>
+  <button onclick="window.location.href='/index'" type="button" class="button buttonBlue">Edit
+    <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+  </button>
+  <button onclick="window.location.href='/index'" type="button" class="button buttonBlue">Change Password
+    <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+  </button>
+  </form>
+{% else %}
+  <form>
+  <center><h1>You are not signed in</h1>
+  <button onclick="window.location.href='/signin'" type="button" class="button buttonBlue">Sign In
+    <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+  </button></center></form>
+{% endif %}
+{% endblock %}
+</body>
+</html>
+
+

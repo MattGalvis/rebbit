@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="{% static 'Rebbit/signintwo.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Rebbit/homepage.css' %}">
+    <title>subrebbit</title>
+</head>
+{%  block content %}
+<body class = "news">
+  <header>
+    <div class="nav">
+      <ul>
+        {% if request.session.user_username %}
+        <li class="logout"><a href="/index">Home</a></li>
+        <li class="logout"><a href="/logout">Log Out</a></li>
+        <li class="createpost"><a href="/createpost">Post</a></li>
+        <li class="createpost"><a href="/createsub">Create Topic</a></li>
+        <li class="logout"><a href="/account">Account</a></li>
+        <li class="aboutus"><a href="/about">About Us</a></li>
+        {% else %}
+        <li class="logout"><a href="/index">Home</a></li>
+        <li class="signin"><a href="/signin">Sign In</a></li>
+        <li class="createpost"><a href="/createpost">Post</a></li>
+        <li class="aboutus"><a href="#">About Us</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </header>
+<form action="/auth/" method="POST">{% csrf_token %}
+  {% if invalid %}
+    <p>Password is incorrect</p>
+   {% elif bothinvalid %}
+    <p>User does not exist</p>
+   {% elif notlogged %}
+    <p>You must be logged in to log out silly </p>
+  {% endif %}
+  <div class="group">
+    <input type="text" name="username" id="username" required><span class="highlight"></span><span class="bar"></span>
+    <label>Name</label>
+  </div>
+  <div class="group">
+    <input type="text" name="password" id="password" required><span class="highlight"></span><span class="bar"></span>
+    <label>Password</label>
+  </div>
+  <button type="submit" onclick="review.save(); return false;" class="button buttonBlue">Sign In
+    <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+  </button>
+      <button onclick="window.location.href='/signup'" type="button" class="button buttonBlue">Register
+    <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+  </button>
+</form>
+{% endblock %}
+</body>
+</html>
