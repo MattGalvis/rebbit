@@ -117,3 +117,5 @@ def auth_sub(request):
     sub.sub_r = request.POST.get('subname')
     sub.save()
     return redirect("/createpost")
+def about(request):
+    return render_to_response("Rebbit/about.html")
